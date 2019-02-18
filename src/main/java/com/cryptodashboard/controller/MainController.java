@@ -10,8 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.cryptodashboard.model.currencies.Cryptocurrency;
-import com.cryptodashboard.model.exchanges.Kraken;
+import com.cryptodashboard.model.currencies.CryptocurrencyCoinMarketCap;
+import com.cryptodashboard.model.exchanges.Exchange;
 import com.cryptodashboard.service.CoinMarketCapService;
 import com.cryptodashboard.service.KrakenService;
 
@@ -31,17 +31,17 @@ public class MainController {
 	public String home(Model model) throws UnsupportedEncodingException, IOException, ParseException
 	{
 		//binanceService.getData();
-		ArrayList<Cryptocurrency> coinData = coinMarketCapService.getData();
-		Kraken kraken = krakenService.getData();
+		ArrayList<CryptocurrencyCoinMarketCap> coinData = coinMarketCapService.getData();
+		Exchange kraken = krakenService.getData();
 		model.addAttribute("kraken", kraken);
 		model.addAttribute("coins", coinData);
-		for(int i=0; i<coinData.size(); i++)
+		/*for(int i=0; i<coinData.size(); i++)
 		{
 			System.out.println(coinData.get(i).getId());
 			System.out.println(coinData.get(i).getName());
 			System.out.println(coinData.get(i).getPrice_usd());
 			System.out.println();			
-		}
+		}*/
 		return "index1";
 	}
 
