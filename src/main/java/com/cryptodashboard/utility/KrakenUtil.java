@@ -12,63 +12,12 @@ import org.json.simple.parser.ParseException;
 import com.cryptodashboard.model.currencies.Cryptocurrency;
 
 public class KrakenUtil {
-
-	public static Cryptocurrency getKrakenBCH() throws UnsupportedEncodingException, IOException, ParseException
-	{
-		Cryptocurrency btc = null;
-		InputStream in = HttpRequest.SendGetRequest("https://api.kraken.com/0/public/Ticker?pair=bchusd");
-		JSONObject obj = JSONUtil.ParseJSONObject(in);
-		if(in != null)
-		{
-			if(obj != null)
-			{
-				JSONArray arr = ((JSONArray) ((JSONObject) ((JSONObject) obj.get("result")).get("BCHUSD")).get("a"));	
-				btc = new Cryptocurrency();
-				btc.setPrice((String) arr.get(0));
-				//System.out.println(btc.getPrice());
-			}
-		}
-		return btc;
-	}
-	
-	public static Cryptocurrency getKrakenCoin(String pair) throws UnsupportedEncodingException, IOException, ParseException
-	{
-		long now = System.currentTimeMillis();
-		long then = System.currentTimeMillis();
-		Cryptocurrency curr = null;
-		InputStream in = HttpRequest.SendGetRequest("https://api.kraken.com/0/public/Ticker?pair="+pair);
-		now = System.currentTimeMillis();
-		System.out.println(now-then);
-		JSONObject obj = JSONUtil.ParseJSONObject(in);
-		now = System.currentTimeMillis();
-		System.out.println(now-then);
-		if(in != null)
-		{
-			if(obj != null)
-			{
-				//System.out.println("X"+pair.substring(0,3)+"Z"+pair.substring(3, pair.length()-1));
-				JSONArray arr = ((JSONArray) ((JSONObject) ((JSONObject) obj.get("result")).get("X"+pair.substring(0,3).toUpperCase()+"Z"+pair.substring(3, pair.length()).toUpperCase())).get("a"));
-				now = System.currentTimeMillis();
-				System.out.println(now-then);
-				curr = new Cryptocurrency();
-				curr.setPrice((String) arr.get(0));
-				//System.out.println(curr.getPrice());
-			}
-		}
-		return curr;
-	}
 	
 	public static ArrayList<Cryptocurrency> getKrakenCoins() throws UnsupportedEncodingException, IOException, ParseException
 	{
-		long now = System.currentTimeMillis();
-		long then = System.currentTimeMillis();
 		ArrayList<Cryptocurrency> coins = new ArrayList<>();;
 		InputStream in = HttpRequest.SendGetRequest("https://api.kraken.com/0/public/Ticker?pair=xbtusd,ethusd,etcusd,bchusd,xrpusd");
-		now = System.currentTimeMillis();
-		System.out.println(now-then);
 		JSONObject obj = JSONUtil.ParseJSONObject(in);
-		now = System.currentTimeMillis();
-		System.out.println(now-then);
 		if(in != null)
 		{
 			if(obj != null)
@@ -105,9 +54,6 @@ public class KrakenUtil {
 				coins.add(eth);
 				coins.add(xbt);
 				coins.add(xrp);
-				
-				now = System.currentTimeMillis();
-				System.out.println(now-then);
 				
 				return coins;
 			}
