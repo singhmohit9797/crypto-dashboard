@@ -19,8 +19,16 @@ public class JSONUtil {
 		JSONArray result;
 		result = new JSONArray();
 		JSONParser parser = new JSONParser();
-		result = (JSONArray) parser.parse( new InputStreamReader(inputStream, "UTF-8"));
+		result = (JSONArray) parser.parse(new InputStreamReader(inputStream, "UTF-8"));
 		return result;
+	}
+	
+	public static JSONObject ParseJSONObject(InputStream inputStream) throws UnsupportedEncodingException, IOException, ParseException
+	{
+		JSONObject obj = new JSONObject();
+		JSONParser parser = new JSONParser();
+		obj = (JSONObject) parser.parse(new InputStreamReader(inputStream, "UTF-8"));
+		return obj;
 	}
 	
 	

@@ -2,13 +2,13 @@ package com.cryptodashboard.model.currencies;
 
 public class Bitcoin {
 	
-	private int price;
+	private String price;
 
-	public int getPrice() {
+	public String getPrice() {
 		return price;
 	}
 
-	public void setPrice(int price) {
+	public void setPrice(String price) {
 		this.price = price;
 	}
 
