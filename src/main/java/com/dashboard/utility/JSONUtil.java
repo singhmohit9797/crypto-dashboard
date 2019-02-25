@@ -1,4 +1,4 @@
-package com.cryptodashboard.utility;
+package com.dashboard.utility;
 
 import java.io.IOException;
 import java.io.InputStream;
