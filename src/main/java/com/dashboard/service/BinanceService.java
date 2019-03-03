@@ -11,41 +11,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dashboard.entity.Cryptocurrency;
-import com.dashboard.entity.Exchange;
 import com.dashboard.repository.CryptocurrencyRepo;
-import com.dashboard.repository.ExchangeRepo;
-import com.dashboard.utility.BinanceUtil;
+import com.dashboard.utility.CryptocurrencyUtil;
 
 @Service
 @Transactional
 public class BinanceService {
 	
 	@Autowired
-	ExchangeRepo exchangeRepo;
-	
-	@Autowired
-	CryptocurrencyRepo cryptoRepo;
-	
-	private Exchange getDataFromAPI() throws UnsupportedEncodingException, IOException, ParseException
+	private CryptocurrencyRepo cryptoRepo;
+
+	public ArrayList<Cryptocurrency> updateCryptoData() throws UnsupportedEncodingException, IOException, ParseException
 	{
-		Exchange binance = new Exchange("binance");
+		ArrayList<Cryptocurrency> list = new ArrayList<>();
 		
-		ArrayList<Cryptocurrency> list = BinanceUtil.getBinanceCoins(binance);
+		Cryptocurrency btc = CryptocurrencyUtil.getCoin("binance", "btcusdt");
+		Cryptocurrency eth = CryptocurrencyUtil.getCoin("binance", "ethusdt");
+		Cryptocurrency ltc = CryptocurrencyUtil.getCoin("binance", "ltcusdt");
 		
-		binance.setCrypto(list);
+		list.add(btc);
+		list.add(eth);
+		list.add(ltc);
 		
-		return binance;
+		cryptoRepo.save(btc);
+		cryptoRepo.save(eth);
+		cryptoRepo.save(ltc);
+		
+		return list;
 	}
-
-	public Exchange getData() throws UnsupportedEncodingException, IOException, ParseException {
-		// TODO Auto-generated method stub
-		return getDataFromAPI();
-	}
-
-	public void saveDataToDB(Exchange exchange) {
-		// TODO Auto-generated method stub
-		exchangeRepo.save(exchange);
-		cryptoRepo.save(exchange.getCrypto());
-	}
-
+	
 }

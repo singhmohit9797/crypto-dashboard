@@ -1,43 +1,34 @@
 package com.dashboard.entity;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 @Entity
 public class Cryptocurrency {
 	
-	private String currency_name;
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-
-	@Column
-	private String price;
 	
-	private Timestamp timestamp;	
+	private String currency_name;
+
+	private String exchange_name;
 	
-	@ManyToOne
-	@JoinColumn
-	private Exchange exchange;
-
-	public Cryptocurrency() {
-		super();
-	}
-
-	public Cryptocurrency(String currency_name, Exchange exchange) {
-		super();
-		this.currency_name = currency_name;
-		this.exchange = exchange;
-	}
+	private double price_last;
+	
+	private String price_high;
+	
+	private double price_low;
+	
+	private double percent_change;
+	
+	private double volume;
+	
+	private Timestamp timestamp;
 
 	public long getId() {
 		return id;
@@ -45,14 +36,6 @@ public class Cryptocurrency {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public Timestamp getTimestamp() {
-		return timestamp;
-	}
-
-	public void setTimestamp(Timestamp timestamp) {
-		this.timestamp = timestamp;
 	}
 
 	public String getCurrency_name() {
@@ -63,27 +46,74 @@ public class Cryptocurrency {
 		this.currency_name = currency_name;
 	}
 
-	public String getPrice() {
-		return price;
+	public String getExchange_name() {
+		return exchange_name;
 	}
 
-	public void setPrice(String price) {
-		this.price = price;
+	public void setExchange_name(String exchange_name) {
+		this.exchange_name = exchange_name;
 	}
 
-	public Exchange getExchange() {
-		return exchange;
+	public double getPrice_last() {
+		return price_last;
 	}
 
-	public void setExchange(Exchange exchange) {
-		this.exchange = exchange;
+	public void setPrice_last(double price_last) {
+		this.price_last = price_last;
+	}
+
+	public String getPrice_high() {
+		return price_high;
+	}
+
+	public void setPrice_high(String price_high) {
+		this.price_high = price_high;
+	}
+
+	public double getPrice_low() {
+		return price_low;
+	}
+
+	public void setPrice_low(double price_low) {
+		this.price_low = price_low;
+	}
+
+	public double getPercent_change() {
+		return percent_change;
+	}
+
+	public void setPercent_change(double percent_change) {
+		this.percent_change = percent_change;
+	}
+
+	public double getVolume() {
+		return volume;
+	}
+
+	public void setVolume(double volume) {
+		this.volume = volume;
+	}
+
+	public Timestamp getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(Timestamp timestamp) {
+		this.timestamp = timestamp;
+	}
+
+	public Cryptocurrency(String currency_name, String exchange_name) {
+		super();
+		this.currency_name = currency_name;
+		this.exchange_name = exchange_name;
 	}
 
 	@Override
 	public String toString() {
-		return "Cryptocurrency [currency_name=" + currency_name + ", price=" + price + ", exchange="
-				+ exchange + "]";
+		return "Cryptocurrency [id=" + id + ", currency_name=" + currency_name + ", exchange_name=" + exchange_name
+				+ ", price_last=" + price_last + ", price_high=" + price_high + ", price_low=" + price_low
+				+ ", percent_change=" + percent_change + ", volume=" + volume + ", timestamp=" + timestamp + "]";
 	}
-
 	
+		
 }
