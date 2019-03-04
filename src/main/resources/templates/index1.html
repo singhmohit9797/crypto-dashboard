@@ -2,19 +2,44 @@
 <html>
    <head>
       <meta charset = "ISO-8859-1" />
+      <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link type="text/css" rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css}" />
+<link type="text/css" rel="stylesheet" th:href="@{https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css}" />
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
       
       <title>Spring Boot Application</title>
    </head>
    <body>
-    <br><br></br></br>
-    Binance
-    <tr>
-        <td th:text="${binance[0].price_last}">1</td>
-        <!-- <td th:text="${binance.etc.price}">1</td>
-        <td th:text="${binance.eth.price}">1</td>
-        <td th:text="${binance.bch.price}">1</td>
-        <td th:text="${binance.xrp.price}">1</td> -->
-        
-    </tr>
+    <table id="cryptotable" class="table table-striped">
+		<thead>
+		<tr>
+		  <th>Currency Name</th>
+		  <th>Exchange Name</th>
+		  <th>Price Last</th>
+		  <th>Volume</th>
+		</tr>  
+		</thead>
+    </table>
+    
+    <script>
+	$(document).ready( function () {
+		 var table = $('#cryptotable').DataTable({
+			"sAjaxSource": "/getdata",
+			"sAjaxDataProp": "",
+			"order": [[ 0, "asc" ]],
+			"columns": [
+				{ "data": "currency_name"},
+				{ "data": "exchange_name"},
+				{ "data": "price_last"},
+				{ "data": "volume"},				    
+			]
+		 })
+		 setInterval( function () {
+			    table.ajax.reload( null, false ); // user paging is not reset on reload
+			}, 10000 );
+	});	
+	</script>
+    
    </body>
 </html>

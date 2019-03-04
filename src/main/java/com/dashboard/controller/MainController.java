@@ -10,6 +10,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dashboard.entity.Cryptocurrency;
 import com.dashboard.service.BinanceService;
@@ -37,6 +38,13 @@ public class MainController {
 		model.addAttribute("binance", binanceCoins);
 		
 		return "index1";
+	}
+	
+	@RequestMapping(value = "/getdata")
+	public @ResponseBody ArrayList<Cryptocurrency> getData()
+	{
+		System.out.println("getdata request received");
+		return binanceCoins;
 	}
 
 }
